@@ -68,4 +68,11 @@ Description of files:
 
 20120409 mod.files/cad.mod updated from euler to derivimplicit as per
 http://www.neuron.yale.edu/phpBB/viewtopic.php?f=28&t=592
+
+20200818 by NTC:  mod.files/NMDA_Mg_T.mod INITIAL block fixed 
+so that initialization brings transition 
+U <-> UMg
+to steady state. Prior to this fix, NMDA_Mg_T needed at least 50 ms of
+model time to settle before it became ready for "synaptic activation."
+
 </pre></html>
