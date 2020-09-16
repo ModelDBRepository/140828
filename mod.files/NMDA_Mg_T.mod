@@ -55,10 +55,27 @@ COMMENT
   
 -----------------------------------------------------------------------------
 
+20200817 NTC
+
+Eliminated non-NEURON stuff.
+
+Fixed initialization.  
+If Mg concentration (PARAMETER mg) is nonzero, the transition
+U <-> UMg must be taken into consideration.  However, 
+the original INITIAL block
+INITIAL {
+	U = 1
+}
+ignored that.  Instead, Branco et al. 2010 waited to expose this 
+mechanism to transmitter (by making the POINTER C value >0) until
+t >= 50 ms.  By that time, equilibration would be very nearly complete 
+for the parameters they used.  Naive re-use of their original 
+implementation could cause problems for anyone who tried activating
+the synapse before U <-> UMg settles, which is why this revision 
+does a proper initialization.  Results generated with the revised 
+version differ only slightly from what Branco et al. obtained--
+the difference is too small to see in the published figures. 
 ENDCOMMENT
-
-
-INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	POINT_PROCESS NMDA_Mg_T
@@ -158,6 +175,9 @@ STATE {
 
 INITIAL {
 	U = 1
+  : next line ensures that 
+  : U <-> UMg is at equilibrium after initialization
+  SOLVE kstates STEADYSTATE sparse 
 }
 
 BREAKPOINT {
@@ -198,4 +218,3 @@ KINETIC kstates {
 
 	CONSERVE U+Cl+D1+D2+O+UMg+ClMg+D1Mg+D2Mg+OMg = 1
 }
-
