@@ -36,11 +36,11 @@ Description of files:
 - **./init_sim**  
   Starts the simulation. Currently set to passive mode, uncomment lines where indicated to switch to active model. The simulation runs through each of the sequences defined in synapse_order, and for each sequence tests different stimulation intervals set by the variable "nTs". This is currently set to 10, which results in iterating from 0 (ie: simultaneous activation) to 9 ms in steps of 1 ms.
 
+## Changelog
+
 20120409 mod.files/cad.mod updated from euler to derivimplicit as per  
 http://www.neuron.yale.edu/phpBB/viewtopic.php?f=28&t=592
 
 20200818 by NTC: mod.files/NMDA_Mg_T.mod INITIAL block fixed so that initialization brings transition U <-> UMg to steady state. Prior to this fix, NMDA_Mg_T needed at least 50 ms of model time to settle before it became ready for "synaptic activation."
 
----
-
-2025-06-20: Converted README to Markdown.
+20250620 Converted README to Markdown.
